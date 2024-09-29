@@ -1,0 +1,25 @@
+/* Estilos para el navbar */
+.navbar {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  /* Estilo del botón activo */
+  .active {
+    font-weight: bold;
+    color: #ff4081 !important; /* Color de resaltado */
+  }
+  
+  a[disabled] {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  
