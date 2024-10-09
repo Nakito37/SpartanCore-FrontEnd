@@ -7,16 +7,14 @@
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <!-- Campo de email -->
           <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email" required>
-            <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-              El correo es obligatorio.
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="nombreUsuario" type="text" required>
+            <mat-error *ngIf="loginForm.get('nombreUsuario')?.invalid && loginForm.get('nombreUsuario')?.touched">
+              Ingresa tu nombre de usuario.
             </mat-error>
           </mat-form-field>
 
-          <!-- Campo de contraseña -->
           <mat-form-field appearance="fill" class="password-field">
             <mat-label>Contraseña</mat-label>
             <input matInput formControlName="contrasena" [type]="verContrasena ? 'password' : 'text'" required>
@@ -24,17 +22,16 @@
               <mat-icon>{{verContrasena ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <mat-error *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">
-              La contraseña es obligatoria.
+              Ingresa tu contraseña.
             </mat-error>
           </mat-form-field>
 
-          <!-- Opciones y acciones -->
-          <mat-checkbox formControlName="rememberMe">
-            <span>Recordar sesión</span>
-          </mat-checkbox>
-
           <div class="login-actions">
-            <button mat-raised-button color="primary" class="submit-button">Ingresar</button>
+             <mat-spinner *ngIf="spinnerCargando" diameter="30"></mat-spinner>
+            
+             <button mat-raised-button color="primary" class="submit-button" [disabled]="spinnerCargando">
+               Ingresar
+             </button>
             <a href="#">Olvide mi contraseña</a>
           </div>
         </form>
@@ -53,3 +50,4 @@
     </div>
   </div>
 </div>
+ 

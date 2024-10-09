@@ -1,0 +1,69 @@
+<div class="container">
+    <!-- Sección izquierda: opciones/enlaces -->
+    <div class="options-section">
+        <div class="opciones">
+            <label>Opciones rápidas</label>
+
+            <hr>
+
+            <ul class="button-list">
+                <li>
+                    <p-button label="Inicio" icon="pi pi-home" [text]="true"></p-button>
+                </li>
+                <li>
+                    <p-button label="Entrenamiento" icon="pi pi-heart" [text]="true"></p-button>
+                </li>
+                <li>
+                    <p-divider></p-divider>
+                </li>
+                <li>
+                    <p-button label="Subir contenido" severity="info" icon="pi pi-upload" [text]="true" (click)="openModal()"></p-button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sección derecha: publicaciones -->
+    <div class="pubs-section">
+        <div class="row" style="width: 80%; text-align: justify;">
+            <div class="col">
+                <div class="custom-panel" *ngFor="let post of publicaciones">
+                    <div class="custom-header">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="avatar">
+                        <span>{{ post.usuario }}</span>
+                    </div>
+                    <div class="custom-content">
+                        <p>{{ post.contenido }}</p>
+                        <img *ngIf="post.img" [src]="post.img" alt="Imagen de publicación">
+                    </div>
+                    <div class="pubs-footer" style="margin-top: 5px;">
+                        <p-rating [(ngModel)]="post.rating" [cancel]="false" />
+                        <p-button label="Comentar" [text]="true" severity="info"></p-button>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para subir contenido -->
+    <p-dialog header="Crear publicación" [(visible)]="displayModal" [modal]="true" [closable]="false" [style]="{width: '40vw'}">
+        <div class="p-fluid">
+            <div class="p-field" style="margin-bottom: 5px;">
+                <label for="texto">Comparte algo:</label>
+                <textarea id="texto" [(ngModel)]="nuevaPublicacion.texto" rows="5" pInputTextarea></textarea>
+            </div>
+ 
+            <div class="p-field" style="margin-bottom: 5px;">
+                <p-fileUpload mode="basic" name="demo[]" accept="image/*,video/*" maxFileSize="1000000" (onSelect)="onFileSelect($event)" chooseLabel="Adjuntar Imagen/Video"></p-fileUpload>
+            </div>
+            <div class="field" style="margin-bottom: 10px;">
+                <p-dropdown [options]="categorias" [(ngModel)]="selectedCategoria" optionlabel="catego" placeholder="Elige una categoria"></p-dropdown>
+            </div>
+
+            <div class="field">
+                <p-button label="Subir publicación" icon="pi pi-check" severity="success" [text]="true" [raised]="true" (click)="subirContenido()"></p-button>
+                <p-button label="Cancelar y cerrar" icon="pi pi-times" severity="danger" [text]="true" [raised]="true" (click)="closeModal()"></p-button>
+            </div>
+        </div>
+    </p-dialog>
+</div>
