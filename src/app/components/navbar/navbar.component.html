@@ -1,10 +1,36 @@
-<mat-toolbar color="transparent" class="navbar">
-    <span class="logo">Logo</span>
-    <span class="spacer"></span>
-    
-    <!-- Navegación con la opción bloqueada cuando esté seleccionada -->
-    <a mat-button [routerLink]="['/']" routerLinkActive="active" [disabled]="isCurrentRoute('')">Inicio</a>
-    <a mat-button [routerLink]="['/login']" routerLinkActive="active" [disabled]="isCurrentRoute('login')">Login</a>
-    <a mat-button [routerLink]="['/register']" routerLinkActive="active" [disabled]="isCurrentRoute('register')">Registro</a>
-  </mat-toolbar>
-  
+
+<div class="card">
+  <p-toolbar class="toolbar"
+[style]="{'padding': '0px'}">
+    <div class="p-toolbar-group-start">
+      <a class="link-logo" href="/home">
+        <img src="/assets/icnLogo.png" alt="Logo" class="logo-img"/>
+      </a>
+    </div>
+    <div class="p-toolbar-group-center">
+      <span>Spartan Core</span>
+    </div>
+    <div class="p-toolbar-group-end">
+      <button pTooltip="Inicio" tooltipPosition="top" class="p-link"
+          [ngClass]="{ 'active-button': isHome }"
+          [disabled]="isHome"
+          routerLink="/home">
+            <span>inicio</span>
+        </button>
+        <button pTooltip="Entrenar" tooltipPosition="top" class="p-link"
+        [ngClass]="{ 'active-button': isPublication }"
+        [disabled]="isPublication"
+        routerLink="/publications">
+          <span>Entrenar</span>
+      </button>
+        <button pTooltip="Buscar" tooltipPosition="top" class="p-link">
+          <i class="pi pi-search"></i>
+      </button>
+      <button pTooltip="Perfil" tooltipPosition="top" class="p-link"
+      (click)="menu.toggle($event)">
+        <i class="pi pi-user"></i>
+    </button>
+    <p-tieredMenu #menu [model]="items" popup="true"></p-tieredMenu>
+    </div>
+  </p-toolbar>
+</div>

@@ -2,14 +2,12 @@
 
 /* Contenedor general */
 .register-container {
-    background: rgb(153, 0, 0);
-    background: linear-gradient(180deg, rgba(153, 0, 0, 1) 100%, rgba(255, 0, 0, 1) 100%);
+    background: #434343;
     display: flex;
     height: 100vh;
     flex-direction: row;
-    padding: 6em;
+    padding: 5em;
     box-sizing: border-box;
-
 }
 
 /* Contenido del formulario */
@@ -19,43 +17,66 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 1);
-    user-select: none;
-
+    background-color: #ffffff00;
     opacity: 0;
     animation: registerForm 2s ease-in-out forwards;
 }
 
 mat-card-title {
-    margin-bottom: 0.7em;
     font-size: 2.5em;
     font-weight: bold;
-    color: #fff;
+    color: orange;
+    padding-bottom: 0.7em;
 }
-
 
 mat-card {
     width: 100%;
     max-width: 400px;
     background: rgb(0, 0, 0);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgb(255, 0, 0);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 1);
 }
 
 .register-actions {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-bottom: 5px;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.register-actions button {
+    background: #3c3c3c;
+    color: #fff;
+    width: 100%;
+}
+
+.register-actions button:hover {
+    background: orange;
+}
+
+.register-actions a {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgb(255, 205, 0);
+    font-weight: bold;
+    margin-bottom: 0.8em;
+    text-decoration: none;
+}
+
+.register-actions a:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .submit-button {
     width: 100%;
     max-width: 200px;
+    margin-bottom: 0.8em;
 }
 
+/* Sombra y estilo para el campo de contraseña */
 .password-field {
     position: relative;
 }
@@ -68,12 +89,12 @@ mat-card {
     transform: translateY(-50%);
 }
 
+/* Estilo para los mensajes de error */
 mat-error {
     display: block;
     color: red;
     font-size: 0.7rem;
     font-weight: bold;
-    margin-bottom: 3px;
 }
 
 mat-form-field {
@@ -88,7 +109,7 @@ mat-card-footer {
 }
 
 mat-card-footer a {
-    color: #ff4081;
+    color: rgb(255, 205, 0);
     text-decoration: none;
     font-weight: bold;
 }
@@ -97,10 +118,14 @@ mat-card-footer a:hover {
     text-decoration: underline;
 }
 
-/* Contenido de imagen presentación */
+mat-checkbox span {
+    color: #fff;
+}
+
+/* Contenido de la imagen presentación */
 .image-section {
     flex: 1;
-    background: url('/assets/bckLogo.png') no-repeat center center;
+    background: url('/assets/bckLogo2.png') no-repeat center center;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -131,20 +156,17 @@ mat-card-footer a:hover {
 }
 
 p {
-    color: #fff
+    color: #fff;
 }
 
+/* KEYFRAMES - APLICAR EFECTOS */
 
-
-/* KEYGRAMES - APLICAR EFECTOS */
-
-/* Imagen Presentacion - contenido desvanecido */
+/* Imagen Presentación - contenido desvanecido */
 @keyframes mostrarLogo {
     from {
         opacity: 0;
         /* Inicio completamente invisible */
     }
-
     to {
         opacity: 1;
         /* Final completamente visible */
@@ -156,7 +178,6 @@ p {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }

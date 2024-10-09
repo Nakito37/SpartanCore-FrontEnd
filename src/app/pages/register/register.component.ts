@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';  // Importa Router para redireccionar después del registro
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -10,35 +13,72 @@ export class RegisterComponent {
   // Vars Mostrar/ocultar contraseñá
   verContrasena = true; 
   verConfirmContrasena = true;
+  spinnerCargando = false;
 
   // Var Formulario registro
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
     this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [
-        Validators.required, // Campo obligatorio
-        Validators.minLength(8), // Minimo 8 caracteres
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/) // Al menos letras minuscula, mayuscula, un numero y un simbolo
+      usuario: ['', [
+        Validators.required,
+        Validators.minLength(4), // Minimo 4 caracteres
+        Validators.pattern(/^[^\s\d][a-zA-Z0-9_]+$/) // No permite comenzar la cadena con un espacio o numero ni permitir caracteres especiales, a excepcion de _
       ]],
-      confirmPassword: ['', Validators.required]
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [
+        Validators.required, // Campo obligatorio
+        //Validators.minLength(8), // Minimo 8 caracteres
+        //Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/) // Al menos letras minuscula, mayuscula, un numero y un simbolo
+      ]],
+      confirmContrasena: ['', Validators.required]
     }, { validators: this.comprobarContrasenas });
 }
 
 comprobarContrasenas(form: FormGroup) {
-  const contrasena = form.get('password')?.value;
-  const confirmContrasena = form.get('confirmPassword')?.value;
+  const contrasena = form.get('contrasena')?.value;
+  const confirmContrasena = form.get('confirmContrasena')?.value;
   return contrasena === confirmContrasena ? null : { mismatch: true };
 }
 
     // Método para manejar la sumisión del formulario
     onSubmit() {
       if (this.registerForm.valid) {
-        // Aquí puedes manejar el registro o la lógica adicional
-        console.log('Formulario válido', this.registerForm.value);
+        console.log("Datos: ", this.registerForm);
+        
+        this.spinnerCargando = true;
+
+        const usuario = {
+          nombre_usuario: this.registerForm.value.usuario,
+          correo_usuario: this.registerForm.value.correo,
+          contrasena_usuario: this.registerForm.value.contrasena
+        };
+  
+        // Llamar al servicio para registrar el usuario
+        this.authService.registrarUsuario(usuario).subscribe({
+          next: (response) => {
+            console.log('Usuario registrado correctamente', response);
+            this.spinnerCargando = false;
+            
+            // Mostrar un mensaje de éxito informando que se envió un correo de verificación
+            this.snackBar.open('Usuario registrado correctamente. Por favor verifica tu correo electrónico antes de iniciar sesión.', 'Cerrar', {
+              duration: 6000,
+            });
+  
+            // Redirigir al usuario a la página de inicio de sesión
+            this.router.navigate(['/login']);
+          },
+          error: (error) => {
+            console.error('Error al registrar el usuario', error);
+            this.spinnerCargando = false;
+            this.snackBar.open('Error al registrar el usuario. Por favor, inténtalo de nuevo.', 'Cerrar', {
+              duration: 6000,
+            });
+          }
+        });
       } else {
         console.log('Formulario inválido');
+        this.snackBar.open('Error interno del servidor. Intenta más tarde.', 'Cerrar', { duration: 6000 })
       }
     }
   }
