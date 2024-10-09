@@ -10,21 +10,22 @@ h2 {
 h2 span{
   font-size: 4rem;
   font-weight: 600;
-  color: #ff7e7e;
+  color: orange;
 }
 a:link, a:visited{
-  color: #ffa9a9;
+  color: orange;
+  text-decoration: none;
 }
+
 h3 a:hover{
   text-decoration: none;
-  background: #3e0000;
-  color: #ffffff;
+  background: #946000;
   cursor: pointer;
 }
 .container{
     padding: 10em;
     height: 100vh;
-    background: rgb(132, 0, 0);
+    background: rgb(53, 53, 53);
     font-family: 'Montserrat', sans-serif;
     flex-direction: row;
     box-sizing: border-box;
