@@ -1,9 +1,6 @@
-<app-navbar></app-navbar>
-
-<div class="mat-app-background">
+<div class="container">
   <p-card class="carrusel-card">
     <div class="carousel-container section">
-      <!-- Inicio de transicion de imagenes en carrusel -->
       <p-carousel [value]="slides" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="10000"
         (onPage)="updateDescription($event)">
         <ng-template pTemplate="item" let-slide>
@@ -16,13 +13,11 @@
           </div>
         </ng-template>
       </p-carousel>
-      <!-- Fin de transicion de imagenes en carrusel -->
     </div>
     <div class="carousel-description section">
       <p>{{ currentDescription }}</p>
-      <a href="/login">Descubrir más</a>
+      <a mat-stroked-button style="color: rgb(255, 115, 0);" href="/login"> DESCUBRE MAS</a>
     </div>
-
   </p-card>
 
   <p-divider></p-divider>
@@ -35,8 +30,6 @@
 
   </div>
 
-
-
   <div class="tabs-info">
     <p-tabView class="info-container">
       <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
@@ -44,4 +37,8 @@
       </p-tabPanel>
     </p-tabView>
   </div>
+
+  <footer class="footer">
+    <p>&copy; 2024 - Mi Aplicación Angular</p>
+  </footer>
 </div>

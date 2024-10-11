@@ -3,8 +3,10 @@ import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { CarouselPageEvent } from 'primeng/carousel';
 import { TabViewModule } from 'primeng/tabview';
-import {DividerModule } from 'primeng/divider'
+import { DividerModule } from 'primeng/divider'
 import { ButtonModule } from 'primeng/button';
+
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-main',
@@ -16,12 +18,13 @@ import { ButtonModule } from 'primeng/button';
     DividerModule,
     ButtonModule,
 
+    MatButtonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent {  
+export class MainComponent {
   @ViewChild('miElemento') elemento: ElementRef | null = null;
   estadoAnimacion: string = 'hidden';
   currentDescription: string = '';
@@ -38,23 +41,38 @@ export class MainComponent {
       description: 'Pon a prueba tus habilidades y establece nuevas rutinas'
     },
     {
+      image: '/assets/crossfit.jpg',
+      alt: 'training',
+      title: 'Cumple tus objetivos',
+      subtitle: '',
+      description: 'Descubre hasta donde puedes llegar'
+    },
+    {
       image: '/assets/cth01.jpg',
       alt: 'Imagen 02',
       title: 'Empieza en cualquier lugar',
       subtitle: '',
       description: 'Da el primer paso sin necesidad de un gimnasio'
     },
+    {
+      image: '/assets/training.jpg',
+      alt: 'Imagen 02',
+      title: 'Mejora tus habilidades',
+      subtitle: '',
+      description: 'Aprende nuevas técnicas de entrenamiento'
+    },
   ];
-  
+
 
   constructor(private cdr: ChangeDetectorRef) { }
 
   // Información de los TabsView
   ngOnInit() {
     this.tabs = [
-        { title: 'Calistenia',
-         content: `
-         <h2 class="tab-title">Calistenia</h2>
+      {
+        title: 'Calistenia',
+        content: `
+         <h2 class="tab-title">Entrenamiento de Calistenia</h2>
          <p class="tab-paragraph">
          La calistenia es un método de entrenamiento que utiliza el peso corporal.
          Empleando ejercicios como flexiones, dominadas, fondos, etc
@@ -68,11 +86,11 @@ export class MainComponent {
          <img src="/assets/cthInf.png" alt="Calistenia" class="tab-image">
          </div>
          <p class="tab-paragraph">¡Empieza tu cambio físico. Sin equipo, sin excusas!</p>
-       ` 
-        },
-        { 
-          title: 'Gimnasio', 
-          content: `
+       `
+      },
+      {
+        title: 'Gimnasio',
+        content: `
           <h2 class="tab-title">Entrenamiento de Gimnasio</h2>
           <p class="tab-paragraph">
           Se trata de una disciplina de entrenamiento utilizando equipo como barras, mancuernas, etc.
@@ -87,11 +105,11 @@ export class MainComponent {
           <img src="/assets/gymInf02.jpg" alt="Gimnasio" class="tab-image">
           </div>
           <p class="tab-paragraph">¡Pon a prueba tus límites y mejora tus resultados en gran medida!</p>
-        `  
-        },
-        { 
-          title: 'Más', 
-          content: `
+        `
+      },
+      {
+        title: 'Más',
+        content: `
           <h2 class="tab-title">Conoce más dentro del sitio</h2>
           <p class="tab-paragraph">
           Ambos tipos de entrenamiento dependerán de los resultados que quieras obtener. Pero
@@ -103,10 +121,10 @@ export class MainComponent {
           <p class="tab-paragraph">
           <b><a href="/login">Ingresa ahora</a></b> para encontrar o crear contenido sin gastar dinero.
           </p>
-        ` 
-        }
+        `
+      }
     ];
-}
+  }
 
   ngAfterViewInit() {
     if (this.elemento) {
@@ -117,20 +135,20 @@ export class MainComponent {
           } else {
             this.estadoAnimacion = 'hidden';
           }
-          this.cdr.detectChanges(); // Force change detection after updating animation state
+          this.cdr.detectChanges(); 
         });
       }, { threshold: 0.1 });
 
       observer.observe(this.elemento.nativeElement);
     }
-    this.updateDescription({ page: 0 }); // Initialize with the first description
-    this.cdr.detectChanges(); // Force change detection after initial updates
+    this.updateDescription({ page: 0 }); 
+    this.cdr.detectChanges(); 
   }
 
   updateDescription(event: CarouselPageEvent) {
     const index = event.page !== undefined ? event.page : 0;
     this.currentDescription = this.slides[index].description;
-    this.cdr.detectChanges(); // Force change detection after updating description
+    this.cdr.detectChanges(); 
   }
 
 }

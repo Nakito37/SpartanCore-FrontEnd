@@ -1,1 +1,22 @@
-<p>verification works!</p>
+
+<div mat-dialog-content style="background: black;">
+    <h3 mat-dialog-title>Verificación 2FA</h3>
+  <p>Se ha enviado un código de verificación a tu correo. Ingresalo para continuar.</p>
+
+  <form [formGroup]="tokenForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Código de verificación</mat-label>
+      <input matInput formControlName="codigoVerificacion" type="text" maxlength="6">
+      <mat-error *ngIf="tokenForm.get('codigoVerificacion')?.invalid && tokenForm.get('codigoVerificacion')?.touched">
+        Ingresa un código válido de 6 dígitos.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-spinner *ngIf="spinnerCargando" diameter="30"></mat-spinner>
+  </form>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="spinnerCargando">Verificar</button>
+    <button mat-button (click)="cerrarDialogo()">Cancelar</button>
+  </div>
+</div>
+

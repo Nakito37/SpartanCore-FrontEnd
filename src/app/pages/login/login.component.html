@@ -7,17 +7,17 @@
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Usuario</mat-label>
-            <input matInput formControlName="nombreUsuario" type="text" required>
+            <input matInput formControlName="nombreUsuario" type="text" style="color: white;" autocomplete="username" required>
             <mat-error *ngIf="loginForm.get('nombreUsuario')?.invalid && loginForm.get('nombreUsuario')?.touched">
               Ingresa tu nombre de usuario.
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="password-field">
+          <mat-form-field appearance="outline" class="password-field">
             <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="contrasena" [type]="verContrasena ? 'password' : 'text'" required>
+            <input matInput formControlName="contrasena" [type]="verContrasena ? 'password' : 'text'" style="color: white;" autocomplete="current-password" required>
             <button mat-icon-button matSuffix (click)="verContrasena = !verContrasena" [attr.aria-label]="'Show password'" [attr.aria-pressed]="verContrasena">
               <mat-icon>{{verContrasena ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>

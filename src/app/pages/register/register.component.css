@@ -76,7 +76,6 @@ mat-card {
     margin-bottom: 0.8em;
 }
 
-/* Sombra y estilo para el campo de contraseña */
 .password-field {
     position: relative;
 }
@@ -165,11 +164,9 @@ p {
 @keyframes mostrarLogo {
     from {
         opacity: 0;
-        /* Inicio completamente invisible */
     }
     to {
         opacity: 1;
-        /* Final completamente visible */
     }
 }
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';  // Importa Router para redireccionar después del registro
+import { Router } from '@angular/router'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -10,7 +10,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  // Vars Mostrar/ocultar contraseñá
   verContrasena = true; 
   verConfirmContrasena = true;
   spinnerCargando = false;
@@ -27,8 +26,8 @@ export class RegisterComponent {
       ]],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [
-        Validators.required, // Campo obligatorio
-        //Validators.minLength(8), // Minimo 8 caracteres
+        Validators.required, 
+        //Validators.minLength(8), 
         //Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/) // Al menos letras minuscula, mayuscula, un numero y un simbolo
       ]],
       confirmContrasena: ['', Validators.required]
@@ -41,7 +40,7 @@ comprobarContrasenas(form: FormGroup) {
   return contrasena === confirmContrasena ? null : { mismatch: true };
 }
 
-    // Método para manejar la sumisión del formulario
+    // Método para manejar formulario
     onSubmit() {
       if (this.registerForm.valid) {
         console.log("Datos: ", this.registerForm);
@@ -57,21 +56,16 @@ comprobarContrasenas(form: FormGroup) {
         // Llamar al servicio para registrar el usuario
         this.authService.registrarUsuario(usuario).subscribe({
           next: (response) => {
-            console.log('Usuario registrado correctamente', response);
             this.spinnerCargando = false;
-            
-            // Mostrar un mensaje de éxito informando que se envió un correo de verificación
             this.snackBar.open('Usuario registrado correctamente. Por favor verifica tu correo electrónico antes de iniciar sesión.', 'Cerrar', {
               duration: 6000,
             });
-  
-            // Redirigir al usuario a la página de inicio de sesión
             this.router.navigate(['/login']);
           },
           error: (error) => {
             console.error('Error al registrar el usuario', error);
             this.spinnerCargando = false;
-            this.snackBar.open('Error al registrar el usuario. Por favor, inténtalo de nuevo.', 'Cerrar', {
+            this.snackBar.open('Error al registrar ' + error, 'Cerrar', {
               duration: 6000,
             });
           }

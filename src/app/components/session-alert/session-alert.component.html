@@ -1,0 +1,10 @@
+<p-dialog header="Advertencia de expiración de sesión" [(visible)]="display" modal="true" [closable]="false" [draggable]="false" [resizable]="false" width="450">
+    <div>
+      <p>Tu sesión está a punto de expirar en menos de 20 segundos.</p>
+    </div>
+    <p-footer>
+      <button pButton type="button" label="Cerrar" icon="pi pi-times" (click)="cerrarDialogo()"></button>
+      <button pButton type="button" label="Extender sesión" icon="pi pi-refresh" (click)="cerrarDialogo()" style="margin-left: 10px;"></button>
+    </p-footer>
+  </p-dialog>
+  

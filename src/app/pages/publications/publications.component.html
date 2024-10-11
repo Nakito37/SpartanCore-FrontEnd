@@ -1,29 +1,25 @@
 <div class="container">
-    <!-- Sección izquierda: opciones/enlaces -->
     <div class="options-section">
-        <div class="opciones">
-            <label>Opciones rápidas</label>
+        <div class="options-content">
+            <label style="text-align: center;">Descubrir</label>
 
-            <hr>
+            <mat-divider></mat-divider>
 
-            <ul class="button-list">
-                <li>
-                    <p-button label="Inicio" icon="pi pi-home" [text]="true"></p-button>
-                </li>
-                <li>
-                    <p-button label="Entrenamiento" icon="pi pi-heart" [text]="true"></p-button>
-                </li>
-                <li>
-                    <p-divider></p-divider>
-                </li>
-                <li>
-                    <p-button label="Subir contenido" severity="info" icon="pi pi-upload" [text]="true" (click)="openModal()"></p-button>
-                </li>
-            </ul>
+            <button mat-button style="color: orange;">
+                <mat-icon style="color: orange;">star</mat-icon>
+                Favoritos
+            </button>
+            <button mat-button style="color: orange;">
+                <mat-icon style="color: orange;">fitness_center</mat-icon>
+                Entrenamiento
+            </button>
+            <button mat-stroked-button style="color: rgb(0, 195, 255);" (click)="openModal()">
+                <mat-icon style="color: rgb(0, 195, 255);">cloud_upload</mat-icon>
+                Subir contenido
+            </button>
         </div>
     </div>
 
-    <!-- Sección derecha: publicaciones -->
     <div class="pubs-section">
         <div class="row" style="width: 80%; text-align: justify;">
             <div class="col">

@@ -12,6 +12,10 @@ import { ToastModule } from 'primeng/toast';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 
+import {MatButtonModule} from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider'; 
+
 
 interface Catego{
   name: string;
@@ -33,6 +37,10 @@ interface Catego{
     ToastModule,
     RatingModule,
     DropdownModule,
+
+    MatButtonModule,
+    MatDividerModule,
+    MatIcon,
 
   ],
   templateUrl: './publications.component.html',
@@ -71,23 +79,22 @@ export class PublicationsComponent {
   }
 
   openModal() {
-    this.displayModal = true; // Abre el modal
+    this.displayModal = true; 
   }
 
   closeModal() {
-    this.displayModal = false; // Cierra el modal
-    this.nuevaPublicacion = { texto: '', imagen: '' }; // Resetea el formulario
+    this.displayModal = false; 
+    this.nuevaPublicacion = { texto: '', imagen: '' }; 
   }
 
   subirContenido() {
     if (this.nuevaPublicacion.texto || this.nuevaPublicacion.imagen) {
-      // Agrega la nueva publicación a la lista
       this.publicaciones.unshift({
-        usuario: 'Nuevo Usuario', // Puedes cambiar esto para que el usuario sea dinámico
+        usuario: 'Nuevo Usuario', 
         contenido: this.nuevaPublicacion.texto,
         img: this.nuevaPublicacion.imagen
       });
-      this.closeModal(); // Cierra el modal después de subir la publicación
+      this.closeModal();
     }
   }
 
@@ -97,7 +104,7 @@ export class PublicationsComponent {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.nuevaPublicacion.imagen = e.target.result; // Guarda la imagen como base64
+        this.nuevaPublicacion.imagen = e.target.result;
       };
       reader.readAsDataURL(file);
     }
