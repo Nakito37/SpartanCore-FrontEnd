@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-session-alert',
@@ -8,15 +9,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SessionAlertComponent {
 
-  display: boolean = true; // Controla la visibilidad del modal
+  display: boolean = false;
 
-  @Output() onExtendSession = new EventEmitter<boolean>();
+  constructor(private authService: AuthService, private dialogRef: MatDialogRef<SessionAlertComponent>) { }
 
-  constructor(private authService: AuthService) { }
-
+  mostrarAlerta(){
+    this.dialogRef;
+  }
   // Método para cerrar el modal
   cerrarDialogo() {
-    this.display = false;
+    this.dialogRef.close(false); 
   }
 
 }

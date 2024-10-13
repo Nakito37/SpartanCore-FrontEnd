@@ -2,7 +2,7 @@
   <div class="form-section">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>CREA UNA CUENTA</mat-card-title>
+        <mat-card-title>CREAR CUENTA</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -54,7 +54,7 @@
           <div class="register-actions">
             <mat-spinner *ngIf="spinnerCargando" diameter="30"></mat-spinner>
             
-            <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="spinnerCargando">
+            <button mat-flat-button class="submit-button" type="submit" [disabled]="spinnerCargando">
               Registrar
             </button>
           </div>

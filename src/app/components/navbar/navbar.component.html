@@ -4,18 +4,18 @@
       <a class="link-logo" href="/home">
         <img src="/assets/icnLogo.png" alt="Logo" class="logo-img" />
       </a>
+      <a href="/home"><label>Spartan Core</label></a>
+      
     </div>
     <div class="p-toolbar-group-center">
-      <span>Spartan Core</span>
+      
     </div>
     <div class="p-toolbar-group-end">
-      <button class="p-link" [ngClass]="{ 'active-button': isHome }" [disabled]="isHome" routerLink="/home">
-        <span>inicio</span>
+      <button class="p-link" routerLink="/test">
+        <span>TEST</span>
       </button>
-      <button class="p-link" [ngClass]="{ 'active-button': isPublication }" [disabled]="isPublication"
-        routerLink="/publications">
-        <span>Entrenar</span>
-      </button>
+      <p-button label="Inicio" [text]="true" severity="contrast" [ngClass]="{ 'active-button': isHome }" [disabled]="isHome" routerLink="/home"></p-button>
+      <p-button label="Contenido" [text]="true" severity="contrast" [ngClass]="{ 'active-button': isPublication }" [disabled]="isPublication" routerLink="/publications"></p-button>
       <!-- 
         <button pTooltip="Buscar" tooltipPosition="top" class="p-link">
           <i class="pi pi-search"></i>

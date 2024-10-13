@@ -2,7 +2,6 @@
 
 /* Contenedor general */
 .login-container {
-  background: #434343;
   display: flex;
   height: 100vh;
   flex-direction: row;
@@ -17,7 +16,7 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #ffffff00;
+  background-color: #1F2937; 
 
   opacity: 0;
   animation: loginForm 2s ease-in-out forwards;
@@ -25,16 +24,18 @@
 
 mat-card-title {
   user-select: none;
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: bold;
-  color: orange;
+  color: rgb(193, 230, 255);
   padding-bottom: 0.7em;
 }
 
 mat-card {
+  user-select: none;
+  align-items: center;
   width: 100%;
   max-width: 400px;
-  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 1);
@@ -44,25 +45,14 @@ mat-card {
 .login-actions {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin-top: 0.5rem;
 }
 
-.login-actions button{
-  background: #3c3c3c;
-  color: #fff;
-  width: 100%;
-}
-
-.login-actions button:hover{
-  background: orange;
-}
 
 .login-actions a{
   text-align: center;
   font-size: 0.9rem;
-  color: rgb(255, 205, 0);
+  color: rgb(53, 118, 198);
   font-weight: bold;
   margin-bottom: 0.8em;
   text-decoration: none;
@@ -75,7 +65,6 @@ mat-card {
 
 .submit-button {
   width: 100%;
-  max-width: 200px;
   margin-bottom: 0.8em;
 }
 
@@ -111,7 +100,7 @@ mat-card-footer {
 }
 
 mat-card-footer a {
-  color: rgb(255, 205, 0);
+  color: rgb(53, 118, 198);
   text-decoration: none;
   font-weight: bold;
 }

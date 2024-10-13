@@ -61,8 +61,7 @@ export class LoginComponent {
       if (result) {
         this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 6000 });
         this.router.navigate(['/home']);
-
-        this.authService.mostrarTiempoExpiracionEnConsola();
+        
       } else {
         this.snackBar.open('Verificación 2FA cancelada o fallida.', 'Cerrar', { duration: 6000 });
       }

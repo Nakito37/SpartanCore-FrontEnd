@@ -1,10 +1,12 @@
-<p-dialog header="Advertencia de expiración de sesión" [(visible)]="display" modal="true" [closable]="false" [draggable]="false" [resizable]="false" width="450">
-    <div>
-      <p>Tu sesión está a punto de expirar en menos de 20 segundos.</p>
+<div style="background: rgb(25, 25, 25); border-radius: 0px; padding: 2.2em">
+    <h5 mat-dialog-title style="text-align: justify; color: rgb(255, 255, 255); font-weight: 500">
+        Alerta
+    </h5>
+    <label>Tu sesión esta a punto de expirar.</label>
+
+    <div class="actions">
+        <button mat-stroked-button (click)="cerrarDialogo()">Aceptar</button>
+        <button mat-flat-button color="primary" (click)="cerrarDialogo()">Extender sesión</button>
+        
     </div>
-    <p-footer>
-      <button pButton type="button" label="Cerrar" icon="pi pi-times" (click)="cerrarDialogo()"></button>
-      <button pButton type="button" label="Extender sesión" icon="pi pi-refresh" (click)="cerrarDialogo()" style="margin-left: 10px;"></button>
-    </p-footer>
-  </p-dialog>
-  
+</div>

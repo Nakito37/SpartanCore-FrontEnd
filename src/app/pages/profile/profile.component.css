@@ -29,14 +29,10 @@
   align-items: stretch; 
 }
 
-mat-icon{
-    color: orange;
-}
-
   
   /* Bloques en la columna izquierda */
   .profile-info, .options-info {
-    background-color: #3b3b3b;
+    background-color: #1F2937;
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -54,6 +50,10 @@ mat-icon{
     justify-content: flex-start; 
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .options-info button{
+    background: #000f257b;
   }
   
   
@@ -76,7 +76,7 @@ mat-icon{
   
   /* Bloque de contenido derecho */
   .content-info {
-    background-color: #787878;
+    background-color: #1F2937;
     border-radius: 15px;
     height: 100%;
     padding: 20px;

@@ -16,21 +16,16 @@
     </div>
     <div class="carousel-description section">
       <p>{{ currentDescription }}</p>
-      <a mat-stroked-button style="color: rgb(255, 115, 0);" href="/login"> DESCUBRE MAS</a>
+      <a mat-stroked-button  href="/login"> DESCUBRE MAS</a>
     </div>
   </p-card>
-
   <p-divider></p-divider>
 
-  <div id="separador section"></div>
   <div class="text-center section">
 
   </div>
-  <div class="card-container section">
 
-  </div>
-
-  <div class="tabs-info">
+  <div class="tabs-info" style="padding: 1em;">
     <p-tabView class="info-container">
       <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
         <div [innerHTML]="tab.content"></div>
@@ -38,7 +33,8 @@
     </p-tabView>
   </div>
 
-  <footer class="footer">
-    <p>&copy; 2024 - Mi Aplicación Angular</p>
-  </footer>
+</div>
+<div class="footer">
+    <h5 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 700; color: #f1f6fc;">Spartan Core</h5>
+    <label>Construyendo fisicos, contruyendo sueños</label>
 </div>

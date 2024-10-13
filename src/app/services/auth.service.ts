@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { DialogService } from 'primeng/dynamicdialog';
-import { SessionAlertComponent } from '../components/session-alert/session-alert.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +12,7 @@ export class AuthService {
   private warningTimeout: any;
   
 
-  constructor(private http: HttpClient, private router: Router, private dialogService: DialogService) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   // Método para registrar un usuario
   registrarUsuario(usuario: { nombre_usuario: string, correo_usuario: string, contrasena_usuario: string }): Observable<any> {
@@ -39,15 +36,14 @@ export class AuthService {
 
   // Guardar el token JWT en el localStorage
   guardarToken(token: string, expiresIn: number) {
-    const expirationTime = new Date().getTime() + expiresIn; // Tiempo actual + tiempo de expiración en milisegundos
+    const expirationTime = new Date().getTime() + expiresIn;
     localStorage.setItem('token', token);
     localStorage.setItem('tokenExpiration', expirationTime.toString())
 
     this.programarExpiracion(expiresIn);
-    this.programarAdvertencia(expirationTime);
+    this.expAdvertencia(expirationTime);
   }
 
-  // Obtener el token del localStorage
   obtenerToken() {
     return localStorage.getItem('token');
   }
@@ -62,18 +58,17 @@ export class AuthService {
 
     const now = new Date().getTime();
     const expirationTime = parseInt(expiration);
-
-    // Si el tiempo actual es mayor que el tiempo de expiración, el token ha expirado
     if (now > expirationTime) {
       this.logout();
       return false;
     }
 
+    console.log("Estas autenticado");
     return true;
   }
 
 
-   // Programar el cierre de sesión cuando el token expire
+   // Cierre de sesión cuando el token expire
    programarExpiracion(expiresIn: number) {
     if (this.expirationTimeout) {
       clearTimeout(this.expirationTimeout); 
@@ -88,45 +83,11 @@ export class AuthService {
   }
 
 
-// Obtener el tiempo restante antes de la expiración del token
-obtenerTiempoExpiracion(): string | null {
-  const expiration = localStorage.getItem('tokenExpiration');
-  if (!expiration) {
-    return null;
-  }
-
-  const now = new Date().getTime();
-  const expirationTime = parseInt(expiration);
-
-  const tiempoRestante = expirationTime - now;
-
-  if (tiempoRestante <= 0) {
-    return 'El token ha expirado';
-  }
-
-  // Convertir el tiempo restante de milisegundos a minutos y segundos
-  const minutos = Math.floor(tiempoRestante / (1000 * 60));
-  const segundos = Math.floor((tiempoRestante % (1000 * 60)) / 1000);
-
-  return `${minutos} minutos y ${segundos} segundos restantes`;
-}
-
-// Mostrar el tiempo restante en la consola
-mostrarTiempoExpiracionEnConsola() {
-  const tiempoRestante = this.obtenerTiempoExpiracion();
-  if (tiempoRestante) {
-    console.log(`Tiempo de expiración del token: ${tiempoRestante}`);
-  } else {
-    console.log('No hay token disponible o ya ha expirado.');
-  }
-}
-
-
-
- // Programar advertencia 20 segundos antes de que el token expire
- programarAdvertencia(expirationTime: number) {
+ // Advertencia antes de que el token expire
+ expAdvertencia(expirationTime: number) {
+  const tiempo = 60 * 6.8 * 1000;
   const tiempoRestante = expirationTime - new Date().getTime();
-  const tiempoAdvertencia = tiempoRestante - 50000;  // Advertencia 20 segundos antes de la expiración
+  const tiempoAdvertencia = tiempoRestante - tiempo;
 
   if (tiempoAdvertencia > 0) {
     if (this.warningTimeout) {
@@ -134,28 +95,18 @@ mostrarTiempoExpiracionEnConsola() {
     }
 
     this.warningTimeout = setTimeout(() => {
-      this.mostrarAdvertencia();
+      console.log("Sesion a punto de expirar: " + tiempoAdvertencia + "ms");
+      
+      this.modalAdvertencia();
     }, tiempoAdvertencia);
   }
 }
 
-// Mostrar el modal de advertencia usando PrimeNG
-mostrarAdvertencia() {
-  const ref = this.dialogService.open(SessionAlertComponent, {
-    header: 'Advertencia de expiración de sesión',
-    width: '400px',
-    closable: false
-  });
+modalAdvertencia() {
 
-  ref.onClose.subscribe((extenderSesion: boolean) => {
-    if (extenderSesion) {
-      console.log('Sesión extendida correctamente');
-    }
-  });
 }
 
 
-  // Método para cerrar sesión
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('tokenExpiration');

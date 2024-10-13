@@ -1,13 +1,10 @@
-/*** Estilos principales ***/
-
+/* Estilos principales */
 .container {
-  background-color: #ffffff00;
   padding: 0.5em;
   padding-left: 4em;
   padding-right: 4em;
   user-select: none;
 }
-
 
 .carrusel-card {
   width: 100vw;
@@ -48,14 +45,14 @@
   text-align: center;
   max-width: 90%;
   max-height: 90%;
-  color: #ffc400;
+  color: #00bfff;
 }
 
 
 .carousel-description {
   text-align: center;
   font-size: 1.6em;
-  color: #ffffff;
+  color: #f1f6fc;
   margin-top: 0.3em;
   font-weight: bold;
 }
@@ -66,7 +63,7 @@
 /* Estilo de titulos */
 ::ng-deep .tab-title {
   font-size: 2em;
-  color: #ffc400;
+  color: #00bfff;
   margin-bottom: 15px;
   font-weight: bold;
 }
@@ -92,7 +89,7 @@
 ::ng-deep .tab-list {
   list-style-type: disc;
   margin-left: 20px;
-  color: #c49600;
+  color: #e6f0ff;
   font-size: 1.1em;
 }
 
@@ -116,173 +113,11 @@
 }
 
 .footer {
-  background-color: #333;
-  color: white;
+  background: #00233cc8;
+  color: rgb(255, 255, 255);
   text-align: center;
-  padding: 10px;
-  height: 50px; 
+  padding: 0.2em;
+  height: 100px; 
   width: 100%;
-  line-height: 50px;
+  line-height: 2px;
 }
-
-
-
-
-
-
-
-
-
-
-/* 
-
-.mat-app-background {
-    background: rgb(206, 206, 206);
-  }
-
-  .header-title{
-    text-align: center;
-  }
-
-  .header-title .header-text{
-    margin-top: -30px;
-    margin-bottom: 30px;
-  }
-  
-  .section {
-    margin-bottom: 20px;
-  }
-  
-  .carousel-container {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px; 
-    box-sizing: border-box; 
-  }
-  
-  .text-center {
-    margin-top: 20px;
-    padding: 70px; 
-    box-sizing: border-box;
-  }
-
-  .text-center .titulo-empresas{
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  .text-center .texto-empresas{
-    font-size: 1.5em;
-    margin-bottom: 20px;
-  }
-  
-  .carousel-item {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .carousel-image {
-    display: block;
-    object-fit: cover;
-    max-width: 80%;
-  }
-  
-  .large-carousel-image {
-    max-height: 50vh; 
-  }
-  
-  .small-carousel-image {
-    max-height: 30vh; 
-  }
-  
-  .carousel-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(116, 116, 116, 0.7);
-    padding: 1em;
-    border-radius: 1em;
-    text-align: center;
-    max-width: 90%;
-    max-height: 90%;
-  }
-  
-  .carousel-description {
-    text-align: center;
-    font-size: 1.6em;
-    color: #000000; 
-    margin-top: 0.3em;
-  }
-  
-  .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .standard-image {
-    width: 45%;
-    height: auto;
-    padding: 2em;
-    animation: heartbeat 5s infinite; 
-  }
-  
-  
-  .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-    padding: 20px; 
-    box-sizing: border-box; 
-  }
-  
-  .standard-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%; 
-    height: 300px;
-    box-sizing: border-box;
-    margin-bottom: -50px;
-    margin-top: -60px;
-  }
-  
-  .standard-card p-card-title {
-    font-size: 1.4em;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .standard-card p-card-content p {
-    font-size: 1em;
-  }
-
-  @keyframes heartbeat {
-    0% {
-      transform: scale(1);
-    }
-    30% {
-      transform: scale(1.1);
-    }
-    60% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-   */

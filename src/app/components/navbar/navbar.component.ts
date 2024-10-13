@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
 
 
