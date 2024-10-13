@@ -1,4 +1,25 @@
 
-app-navbar{
-    background-color: black;
-}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Estilos para hacer que el navbar se quede fijo al inicio de la pantalla */
+  app-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que el navbar esté sobre otros elementos */
+    background-color: #333; /* Color de fondo del navbar */
+    color: white;
+  }
+
+  router-outlet {
+    margin-top: 62px; /* Ajusta según la altura de tu navbar */
+    flex: 1; /* Ocupará todo el espacio restante disponible debajo del navbar */
+    display: block;
+  }

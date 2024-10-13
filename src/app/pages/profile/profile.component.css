@@ -1,0 +1,91 @@
+/* Estilos generales */
+:host {
+    display: block;
+    height: 100vh; 
+    overflow: hidden; 
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    height: 100vh;
+  }
+  
+  /* sidebar fija */
+  .options-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    height: 100vh; 
+  }
+
+.button-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  width: 100%; 
+  align-items: stretch; 
+}
+
+  
+  /* Bloques en la columna izquierda */
+  .profile-info, .options-info {
+    background-color: #1F2937;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #004466;
+    margin: 10px;
+  }
+
+  .options-info{
+    flex-grow: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .options-info button{
+    background: #000f257b;
+  }
+  
+  
+  .profile-info {
+    height: 150px; 
+  }
+  
+ 
+  .options-info {
+    flex-grow: 1; 
+  }
+  
+
+  .content-section {
+/* 
+     overflow-y: auto;
+      */
+    height: 100vh; 
+  }
+  
+  /* Bloque de contenido derecho */
+  .content-info {
+    background-color: #1F2937;
+    border-radius: 15px;
+    height: 100%;
+    padding: 20px;
+    margin: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+ 
+  

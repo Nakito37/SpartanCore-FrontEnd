@@ -17,14 +17,11 @@ export class VerifyEmailComponent {
   ) {}
 
   ngOnInit(): void {
-    // Obtener el token de la URL
     const token = this.route.snapshot.paramMap.get('token');
     if (token) {
-      // Verificar el token de correo
       this.authService.verificarCorreo(token).subscribe({
         next: (response) => {
           this.mensaje = 'Cuenta verificada correctamente. Redirigiendo al login...';
-          // Redirigir al login después de unos segundos
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 3000);

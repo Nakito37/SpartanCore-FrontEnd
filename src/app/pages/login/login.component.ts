@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { VerificationComponent } from '../../components/verification/verification.component';
 
 @Component({
   selector: 'app-login',
@@ -14,17 +16,17 @@ export class LoginComponent {
   verContrasena = true;
   spinnerCargando = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.loginForm = this.fb.group({
       nombreUsuario: ['', [Validators.required]],
       contrasena: ['', Validators.required],
-      rememberMe: [false]
+      // rememberMe: [false]
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.spinnerCargando = true;  // Activar el spinner de carga
+      this.spinnerCargando = true; 
 
       const credenciales = {
         nombre_usuario: this.loginForm.value.nombreUsuario,
@@ -34,14 +36,11 @@ export class LoginComponent {
       // Llamar al servicio de autenticación para hacer login
       this.authService.loginUsuario(credenciales).subscribe({
         next: (response) => {
-          console.log('Usuario registrado correctamente', response);
-          this.spinnerCargando = false;  // Desactivar el spinner de carga
-          this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 6000 });
-          // Redirigir a la página principal o dashboard
-          this.router.navigate(['/home']);
+          this.spinnerCargando = false;
+          this.modalVerification();
         },
         error: (error) => {
-          this.spinnerCargando = false;  // Desactivar el spinner de carga
+          this.spinnerCargando = false; 
           console.error('Error al iniciar sesión', error);
           this.snackBar.open('Error al iniciar sesión. Por favor, verifica tus credenciales.', 'Cerrar', { duration: 6000 });
         }
@@ -50,6 +49,23 @@ export class LoginComponent {
       console.log('Formulario inválido');
       this.snackBar.open('Error interno del servidor. Intenta más tarde.', 'Cerrar', { duration: 6000 });
     }
+  }
+
+  // Método para abrir el modal de verificación 2FA
+  modalVerification() {
+    const dialogRef = this.dialog.open(VerificationComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 6000 });
+        this.router.navigate(['/home']);
+        
+      } else {
+        this.snackBar.open('Verificación 2FA cancelada o fallida.', 'Cerrar', { duration: 6000 });
+      }
+    });
   }
   
 }

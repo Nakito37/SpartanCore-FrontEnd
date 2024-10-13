@@ -1,29 +1,25 @@
 <div class="container">
-    <!-- Sección izquierda: opciones/enlaces -->
     <div class="options-section">
-        <div class="opciones">
-            <label>Opciones rápidas</label>
+        <div class="options-content">
+            <label style="text-align: center;">Descubrir</label>
 
-            <hr>
+            <mat-divider></mat-divider>
 
-            <ul class="button-list">
-                <li>
-                    <p-button label="Inicio" icon="pi pi-home" [text]="true"></p-button>
-                </li>
-                <li>
-                    <p-button label="Entrenamiento" icon="pi pi-heart" [text]="true"></p-button>
-                </li>
-                <li>
-                    <p-divider></p-divider>
-                </li>
-                <li>
-                    <p-button label="Subir contenido" severity="info" icon="pi pi-upload" [text]="true" (click)="openModal()"></p-button>
-                </li>
-            </ul>
+            <button mat-button>
+                <mat-icon>star</mat-icon>
+                Favoritos
+            </button>
+            <button mat-button>
+                <mat-icon>fitness_center</mat-icon>
+                Entrenamiento
+            </button>
+            <button mat-button style="color: rgb(214, 214, 214); background: #005CBB;" (click)="openModal()">
+                <mat-icon style="color: rgb(0, 195, 255);">cloud_upload</mat-icon>
+                Subir contenido
+            </button>
         </div>
     </div>
 
-    <!-- Sección derecha: publicaciones -->
     <div class="pubs-section">
         <div class="row" style="width: 80%; text-align: justify;">
             <div class="col">
@@ -32,10 +28,12 @@
                         <img src="https://via.placeholder.com/50" alt="Avatar" class="avatar">
                         <span>{{ post.usuario }}</span>
                     </div>
+                    <mat-divider></mat-divider>
                     <div class="custom-content">
                         <p>{{ post.contenido }}</p>
                         <img *ngIf="post.img" [src]="post.img" alt="Imagen de publicación">
                     </div>
+                    <mat-divider></mat-divider>
                     <div class="pubs-footer" style="margin-top: 5px;">
                         <p-rating [(ngModel)]="post.rating" [cancel]="false" />
                         <p-button label="Comentar" [text]="true" severity="info"></p-button>                       

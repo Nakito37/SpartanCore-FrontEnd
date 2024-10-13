@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -14,8 +14,7 @@ export class NavbarComponent {
   isHome: boolean = false;
   isPublication: boolean = false;
 
-  constructor(private router: Router) {
-    // Escuchar cambios en la navegación para actualizar el estado de 'Inicio'
+  constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isHome = this.router.url === '/home';
@@ -26,7 +25,6 @@ export class NavbarComponent {
   }
 
   ngOnInit() {
-    // Inicializar el estado del botón 'Inicio' cuando el componente se carga
     this.updateMenuItems();
   }
 
@@ -57,13 +55,10 @@ export class NavbarComponent {
   }
 
   verPerfil() {
-    // Implementar lógica para redirigir al perfil
-    console.log('Ver Perfil');
     this.router.navigate(['/profile']);
   }
 
   cerrarSesion() {
-    // Implementar lógica para cerrar sesión
-    console.log('Cerrar Sesión');
+    this.authService.logout();
   }
 }

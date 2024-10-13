@@ -1,22 +1,31 @@
-
-.p-toolbar-group-center span{
-  color: #ffc400;
-  font-size: 2em;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
+.p-toolbar-group-start a{
+  cursor: pointer;
+  align-items: stretch;
   user-select: none;
+  text-decoration: none;
 }
 
+.p-toolbar-group-start label{
+  color:#f1f6fc;
+  font-size: 2.2em;
+  margin-left: 15px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.p-toolbar-group-end{
+  align-content: stretch;
+}
 
 .p-toolbar-group-end button{
-  color: #ffc400;
+  color:rgba(255, 255, 255, 0.800);
   margin-left: 5px;
   height: 100%;
   border-radius: 0px;
   font-size: 1em;
   padding: 1em;
   background-color: transparent;
-  border: none;
 }
 
 .p-toolbar-group-end button:hover{
@@ -24,20 +33,13 @@
 }
 
 .active-button {
-  color: #ffffff !important;
   cursor: default;
-}
-
-
-.link-logo{
-  text-decoration: none;
-  align-items: center;
-  user-select: none;
+  border-bottom: 6px solid rgb(0, 200, 255);
 }
 
 .logo-img {
   height: 55px; 
-  margin-left: 10px; 
+  margin-left: 20px; 
 }
 
 

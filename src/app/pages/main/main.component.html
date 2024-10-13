@@ -1,9 +1,6 @@
-<app-navbar></app-navbar>
-
-<div class="mat-app-background">
+<div class="container">
   <p-card class="carrusel-card">
     <div class="carousel-container section">
-      <!-- Inicio de transicion de imagenes en carrusel -->
       <p-carousel [value]="slides" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="10000"
         (onPage)="updateDescription($event)">
         <ng-template pTemplate="item" let-slide>
@@ -16,32 +13,28 @@
           </div>
         </ng-template>
       </p-carousel>
-      <!-- Fin de transicion de imagenes en carrusel -->
     </div>
     <div class="carousel-description section">
       <p>{{ currentDescription }}</p>
-      <a href="/login">Descubrir más</a>
+      <a mat-stroked-button  href="/login"> DESCUBRE MAS</a>
     </div>
-
   </p-card>
-
   <p-divider></p-divider>
 
-  <div id="separador section"></div>
   <div class="text-center section">
 
   </div>
-  <div class="card-container section">
 
-  </div>
-
-
-
-  <div class="tabs-info">
+  <div class="tabs-info" style="padding: 1em;">
     <p-tabView class="info-container">
       <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
         <div [innerHTML]="tab.content"></div>
       </p-tabPanel>
     </p-tabView>
   </div>
+
+</div>
+<div class="footer">
+    <h5 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 700; color: #f1f6fc;">Spartan Core</h5>
+    <label>Construyendo fisicos, contruyendo sueños</label>
 </div>
