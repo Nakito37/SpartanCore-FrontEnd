@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -11,15 +11,18 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
+import { DividerModule } from 'primeng/divider';
 
 import {MatButtonModule} from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider'; 
+import { MessageService } from 'primeng/api';
 
+import { AuthService } from '../../services/auth.service';
+import { PublicationsService } from '../../services/publications.service';
+import { environment } from '../../../environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
-interface Catego{
-  name: string;
-}
 
 @Component({
   selector: 'app-publications',
@@ -37,6 +40,7 @@ interface Catego{
     ToastModule,
     RatingModule,
     DropdownModule,
+    DividerModule,
 
     MatButtonModule,
     MatDividerModule,
@@ -46,36 +50,110 @@ interface Catego{
   templateUrl: './publications.component.html',
   styleUrl: './publications.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [MessageService]
 })
-export class PublicationsComponent {
+export class PublicationsComponent implements OnInit {
+  apiUrl: string = environment.apiUrl; 
+  contenido: string = '';
+  archivo: File | null = null;
+  categorias: any[] | undefined;
+  selectedCategoria: any;
 
-  categorias: Catego[] | undefined;
-  selectedCategoria: Catego | undefined;
+  publicaciones: any[] = [];
 
   value!: number;
-  publicaciones: any[] = [];
   displayModal: boolean = false;
-  nuevaPublicacion: any = {
-    texto: '',
-    imagen: ''
-  };
+  errorMessage: string | undefined;
+ 
 
-  constructor() { }
+  constructor(private publicationsService: PublicationsService, private messageService: MessageService, private authService: AuthService) { }
 
-
-  ngOnInit(): void {
-
+  ngOnInit() {
     this.categorias = [
-      { name: "Calistenia"},
-      { name: "Gimnasio"}
+      { catego: 'Gimnasio' },
+      { catego: 'Calistenia' },
+      { catego: 'Crossfit' },
+      { catego: 'Salud' }
     ];
-    // Publicaciones iniciales de ejemplo
-    this.publicaciones = [
-      { usuario: 'Usuario 1', contenido: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum..', img: 'https://via.placeholder.com/300x200' },
-      { usuario: 'Usuario 2', contenido: 'Otra publicación de ejemplo.', img: 'https://via.placeholder.com/300x200' },
-      { usuario: 'Usuario 3', contenido: 'publicación de ejemplo.', img: 'https://via.placeholder.com/300x200' },
-      { usuario: 'Usuario 4', contenido: 'ejemplo.', img: 'https://via.placeholder.com/300x200' },
-    ];
+    this.cargarPublicaciones();
+  }
+
+  onFileSelect(event: any) {
+    this.archivo = event.files[0];
+  }
+
+  subirContenido(): void {    
+      const formData: FormData = new FormData();
+
+      formData.append('contenido_publicacion', this.contenido);
+      formData.append('categoria', this.selectedCategoria.catego);
+      if (this.archivo) {
+        formData.append('media', this.archivo);
+      } 
+
+      this.publicationsService.crearPublicacion(formData).subscribe(
+        (response) => {
+          console.log("newPub: ", response);
+          
+          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Publicación creada' });
+          this.cargarPublicaciones();
+          this.closeModal();
+          this.resetForm();
+        },
+        (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear publicación' });
+        }
+      );
+  }
+
+  // Método para cargar las publicaciones desde el backend
+  cargarPublicaciones(): void {
+
+    this.publicationsService.obtenerPublicaciones().subscribe(
+      (response: any[]) => {
+        this.publicaciones = response.map(post => {
+          const media = post.DatosPublicacions[0]; // Asumimos que cada post tiene al menos un archivo multimedia
+          return {
+            id_publicacion: post.id_publicacion,
+            nombre_usuario: post.Usuario ? post.Usuario.nombre_usuario : null,
+            contenido_publicacion: post.contenido_publicacion,
+            tipo: media ? media.media : null, // 'image' o 'video'
+            media_url: media ? `${this.apiUrl}${media.media_url}` : null, // Concatenar la URL del contenido multimedia
+            rating: 0 // Valor predeterminado para el rating
+          };
+        });
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error al obtener las publicaciones', error);
+      }
+    );
+
+/*     
+    this.publicationsService.obtenerPublicaciones().subscribe(
+      (data) => {
+        console.log("data: ", data); 
+
+        this.publicaciones = data.map((post: any) => ({
+          nombre_usuario: post.Usuario ? post.Usuario.nombre_usuario: "No disponible",
+          contenido_publicacion: post.contenido_publicacion,
+          media_url: post.DatosPublicacions?.[0]?.media_url || null, 
+          tipo: post.DatosPublicacions?.[0]?.media || null,
+          rating: 0
+        }));
+        console.log("final pubs: ", this.publicaciones);
+        
+      },
+      (error) => {
+        console.error('Error al cargar publicaciones:', error);
+      }
+    );
+ */
+  }
+
+  resetForm() {
+    this.contenido = '';
+    this.selectedCategoria = null;
+    this.archivo = null;
   }
 
   openModal() {
@@ -83,31 +161,8 @@ export class PublicationsComponent {
   }
 
   closeModal() {
+    this.resetForm();
     this.displayModal = false; 
-    this.nuevaPublicacion = { texto: '', imagen: '' }; 
-  }
-
-  subirContenido() {
-    if (this.nuevaPublicacion.texto || this.nuevaPublicacion.imagen) {
-      this.publicaciones.unshift({
-        usuario: 'Nuevo Usuario', 
-        contenido: this.nuevaPublicacion.texto,
-        img: this.nuevaPublicacion.imagen
-      });
-      this.closeModal();
-    }
-  }
-
-
-  onFileSelect(event: any) {
-    const file = event.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.nuevaPublicacion.imagen = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
   }
 
 }

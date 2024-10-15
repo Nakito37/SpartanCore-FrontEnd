@@ -42,6 +42,11 @@
     margin: 10px;
   }
 
+  .profile-info{
+    padding: 2em;
+    justify-content: stretch;
+  }
+
   .options-info{
     flex-grow: 1;
     padding: 20px;
@@ -54,6 +59,7 @@
 
   .options-info button{
     background: #000f257b;
+    color: rgb(220, 236, 255);
   }
   
   

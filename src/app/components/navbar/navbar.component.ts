@@ -26,13 +26,24 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.updateMenuItems();
+    this.updateUsuario();
   }
 
+  updateUsuario() {
+    if (this.authService.isAuthenticated()) {
+      const nombreUsuario = this.authService.obtenerUsuario();      
+      if (nombreUsuario) {
+        this.usuario = nombreUsuario;
+      }
+      this.usuario;
+    }
+  }
+ 
   updateMenuItems() {
     this.items = [
       {
-        label: 'Ver Perfil',
-        icon: 'pi pi-user',
+        label: 'Mi Perfil',
+        icon: 'pi pi-user-edit',
         command: () => {
           this.verPerfil();
         }
@@ -48,6 +59,7 @@ export class NavbarComponent {
         separator: true
       },
       {
+        icon: 'pi pi-user',
         label: this.usuario,
         disabled: true
       }

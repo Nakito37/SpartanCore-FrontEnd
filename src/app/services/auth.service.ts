@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { environment } from '../../environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';  
+  private baseUrl = environment.apiUrl;  
   private expirationTimeout: any;
   private warningTimeout: any;
   
@@ -36,16 +39,36 @@ export class AuthService {
 
   // Guardar el token JWT en el localStorage
   guardarToken(token: string, expiresIn: number) {
+    console.log("guardarToken: ", token);
+    
     const expirationTime = new Date().getTime() + expiresIn;
+    const decodedToken: any = jwtDecode(token);
     localStorage.setItem('token', token);
-    localStorage.setItem('tokenExpiration', expirationTime.toString())
+    localStorage.setItem('tokenExpiration', expirationTime.toString());
+    localStorage.setItem('usuario', decodedToken.nombre_usuario);
 
-    this.programarExpiracion(expiresIn);
-    this.expAdvertencia(expirationTime);
+    this.expAdvertencia(expiresIn);
+    console.log("tokenInf: ", decodedToken);
+    
   }
+
 
   obtenerToken() {
     return localStorage.getItem('token');
+  }
+
+  obtenerIdUsuario(): number{
+    const token = this.obtenerToken();
+    if (token) {      
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.id_usuario;
+    }
+    console.log("No existe token");
+    return 0;
+  }
+
+  obtenerUsuario(): string | null {
+    return localStorage.getItem('usuario');
   }
 
   // Verificar si el token ha expirado
@@ -109,7 +132,8 @@ modalAdvertencia() {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('tokenExpiration');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('tokenExpiration')
     this.router.navigate(['/login']);
 
     if (this.expirationTimeout) {

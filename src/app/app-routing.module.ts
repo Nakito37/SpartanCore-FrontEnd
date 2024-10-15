@@ -6,8 +6,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { MainComponent } from './pages/main/main.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PublicationsComponent } from './pages/publications/publications.component';
-import { authGuard } from './guards/auth.guard'
-import { TestComponentComponent } from './archive/test-component/test-component.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/register', pathMatch: 'full' },
@@ -20,7 +19,6 @@ const routes: Routes = [
   { path: 'publications', component: PublicationsComponent},
 
 
-  { path: 'test', component: TestComponentComponent},
   { path: '**', component: ErrorPageComponent}
 ];
 

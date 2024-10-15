@@ -36,13 +36,15 @@ export class LoginComponent {
       // Llamar al servicio de autenticación para hacer login
       this.authService.loginUsuario(credenciales).subscribe({
         next: (response) => {
+          console.log("response login: ", response);
           this.spinnerCargando = false;
           this.modalVerification();
+          
         },
         error: (error) => {
           this.spinnerCargando = false; 
           console.error('Error al iniciar sesión', error);
-          this.snackBar.open('Error al iniciar sesión. Por favor, verifica tus credenciales.', 'Cerrar', { duration: 6000 });
+          this.snackBar.open('Error - Usuario o contraseña incorrectos', 'Cerrar', { duration: 6000 });
         }
       });
     } else {
@@ -58,12 +60,14 @@ export class LoginComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log("res:", result);
+
       if (result) {
-        this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 6000 });
-        this.router.navigate(['/home']);
-        
+        console.log("Exito al verificar 2fa ", result);
+          this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 6000 });
+          this.router.navigate(['/home']);        
       } else {
-        this.snackBar.open('Verificación 2FA cancelada o fallida.', 'Cerrar', { duration: 6000 });
+        this.snackBar.open('Verificación fallida.', 'Cerrar', { duration: 6000 });
       }
     });
   }

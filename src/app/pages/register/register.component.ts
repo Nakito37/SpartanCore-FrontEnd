@@ -57,7 +57,7 @@ comprobarContrasenas(form: FormGroup) {
         this.authService.registrarUsuario(usuario).subscribe({
           next: (response) => {
             this.spinnerCargando = false;
-            this.snackBar.open('Usuario registrado correctamente. Por favor verifica tu correo electrónico antes de iniciar sesión.', 'Cerrar', {
+            this.snackBar.open('Exito  -   Verifica tu correo electrónico antes de iniciar sesión.', 'Cerrar', {
               duration: 6000,
             });
             this.router.navigate(['/login']);
@@ -72,7 +72,7 @@ comprobarContrasenas(form: FormGroup) {
         });
       } else {
         console.log('Formulario inválido');
-        this.snackBar.open('Error interno del servidor. Intenta más tarde.', 'Cerrar', { duration: 6000 })
+        this.snackBar.open('Error - Información inválida.', 'Cerrar', { duration: 6000 })
       }
     }
   }
