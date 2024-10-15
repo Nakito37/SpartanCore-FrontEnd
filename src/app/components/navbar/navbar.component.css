@@ -6,7 +6,7 @@
 }
 
 .p-toolbar-group-start label{
-  color:#f1f6fc;
+  color: rgb(220, 236, 255);
   font-size: 2.2em;
   margin-left: 15px;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -19,7 +19,7 @@
 }
 
 .p-toolbar-group-end button{
-  color:rgba(255, 255, 255, 0.800);
+  color: rgb(220, 236, 255);
   margin-left: 5px;
   height: 100%;
   border-radius: 0px;
@@ -34,7 +34,7 @@
 
 .active-button {
   cursor: default;
-  border-bottom: 6px solid rgb(0, 200, 255);
+  border-bottom: 6px solid rgb(82, 216, 253);
 }
 
 .logo-img {

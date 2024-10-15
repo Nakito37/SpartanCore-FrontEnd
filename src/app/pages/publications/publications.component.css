@@ -33,7 +33,8 @@
 }
 
 .options-content button{
-  background: #000f257b;
+  background: #000f257b; 
+  color: rgb(220, 236, 255);
 }
 
 .button-list {

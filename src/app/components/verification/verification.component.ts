@@ -14,6 +14,7 @@ export class VerificationComponent {
 
   tokenForm: FormGroup;
   spinnerCargando = false;
+  userToken: String | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -34,10 +35,10 @@ export class VerificationComponent {
       // Llamar al servicio para verificar el código 2FA
       this.authService.verificar2FA(codigoVerificacion).subscribe({
         next: (response) => {
+          console.log("2fa res: ", response);
+          this.authService.guardarToken(response.token, response.expiresIn)
           this.snackBar.open('Autenticación exitosa', 'Cerrar', { duration: 6000 });
           this.dialogRef.close(true);
-          const { token, expiresIn } = response;
-          this.authService.guardarToken(token, expiresIn);
         },
         error: (error) => {
           this.spinnerCargando = false;

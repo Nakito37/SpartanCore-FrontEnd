@@ -26,42 +26,49 @@
                 <div class="custom-panel" *ngFor="let post of publicaciones">
                     <div class="custom-header">
                         <img src="https://via.placeholder.com/50" alt="Avatar" class="avatar">
-                        <span>{{ post.usuario }}</span>
+                        <span style="font-weight: 700; font-size: larger;">{{ post.nombre_usuario }}</span> <!-- Mostrar el nombre del usuario -->
+                        <span *ngIf="!post.nombre_usuario">Usuario no disponible</span> 
                     </div>
                     <mat-divider></mat-divider>
                     <div class="custom-content">
-                        <p>{{ post.contenido }}</p>
-                        <img *ngIf="post.img" [src]="post.img" alt="Imagen de publicación">
+                        <p>{{ post.contenido_publicacion }}</p>
+    
+                        <!-- Mostrar imagen o video según el tipo de contenido -->
+                        <img *ngIf="post.tipo === 'image'" [src]="post.media_url" alt="Imagen de {{post.nombre_usuario}}" class="media-content">
+                        <video *ngIf="post.tipo === 'video'" [src]="post.media_url" controls class="media-content"></video>
                     </div>
                     <mat-divider></mat-divider>
-                    <div class="pubs-footer" style="margin-top: 5px;">
-                        <p-rating [(ngModel)]="post.rating" [cancel]="false" />
-                        <p-button label="Comentar" [text]="true" severity="info"></p-button>                       
+                    <div class="pubs-footer" style="margin: 1.5em 0px 1em 0em;">
+                        <p-rating [(ngModel)]="post.rating" [cancel]="false"></p-rating>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <!-- Modal para subir contenido -->
-    <p-dialog header="Crear publicación" [(visible)]="displayModal" [modal]="true" [closable]="false" [style]="{width: '40vw'}">
+    <p-dialog header="Crear publicación" [(visible)]="displayModal" [modal]="true" [closable]="false" [style]="{width: '50vw'}">
         <div class="p-fluid">
             <div class="p-field" style="margin-bottom: 5px;">
                 <label for="texto">Comparte algo:</label>
-                <textarea id="texto" [(ngModel)]="nuevaPublicacion.texto" rows="5" pInputTextarea></textarea>
+                <textarea id="texto" [(ngModel)]="contenido" rows="3" pInputTextarea></textarea>
             </div>
- 
-            <div class="p-field" style="margin-bottom: 5px;">
-                <p-fileUpload mode="basic" name="demo[]" accept="image/*,video/*" maxFileSize="1000000" (onSelect)="onFileSelect($event)" chooseLabel="Adjuntar Imagen/Video"></p-fileUpload>
+    
+            <div class="field" style="margin-bottom: 5px;">
+                <p-fileUpload mode="advanced" name="demo[]" accept="image/*,video/*" maxFileSize="10500000" invalidFileSizeMessageSummary="Error"
+                 showUploadButton="false" showCancelButton="false" (onSelect)="onFileSelect($event)"
+                 chooseLabel="Subir Imagen/Video (10Mb max)">
+                </p-fileUpload>
             </div>
-            <div class="field" style="margin-bottom: 10px;">
-                <p-dropdown [options]="categorias" [(ngModel)]="selectedCategoria" optionlabel="catego" placeholder="Elige una categoria"></p-dropdown>
+            <div class="field" style="margin-bottom: 1em;">
+                <p-dropdown [options]="categorias" [(ngModel)]="selectedCategoria" scrollHeight="100px" 
+                optionLabel="catego" placeholder="Elige una categoria" required>
+            </p-dropdown>
             </div>
-
+    
             <div class="field">
                 <p-button label="Subir publicación" icon="pi pi-check" severity="success" [text]="true" [raised]="true" (click)="subirContenido()"></p-button>
-                <p-button label="Cancelar y cerrar" icon="pi pi-times" severity="danger" [text]="true" [raised]="true" (click)="closeModal()"></p-button>
+                <p-button label="Cancelar y cerrar" icon="pi pi-times" severity="danger" [outlined]="true" (click)="closeModal()"></p-button>
             </div>
         </div>
     </p-dialog>
-</div>
